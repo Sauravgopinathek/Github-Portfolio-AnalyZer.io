@@ -20,14 +20,17 @@ function App() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      console.log("Attempting to connect to backend at:", apiUrl);
+
       const res = await axios.post(`${apiUrl}/analyze`, {
         githubUrl: url,
       });
       setResult(res.data);
     } catch (err) {
-      console.error(err);
+      console.error("Analysis Error:", err);
       setError(
-        err.response?.data?.error || "Error analyzing profile. Make sure the backend is running."
+        err.response?.data?.error ||
+        "Network Error: Could not reach the backend. If you are on Vercel, check that VITE_API_URL is set correctly."
       );
     } finally {
       setLoading(false);

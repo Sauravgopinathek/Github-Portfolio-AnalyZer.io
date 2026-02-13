@@ -29,6 +29,10 @@ function extractUsername(url) {
   return parts[1]?.split("/")[0];
 }
 
+app.get("/", (req, res) => {
+  res.send("在此 backend runs! The GitHub Analyzer functionality is at /analyze.");
+});
+
 app.post("/analyze", async (req, res) => {
   try {
     const { githubUrl } = req.body;
